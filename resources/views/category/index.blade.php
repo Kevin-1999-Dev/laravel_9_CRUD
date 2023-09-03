@@ -1,9 +1,9 @@
 @extends('../layout')
 
 @section('category')
-    <nav class="d-flex justify-content-center align-items-center border border-dark mb-3">
+    <nav class="d-flex justify-content-between align-items-center shadow-sm mb-3 p-2">
         <div class="">
-            <img src="{{ asset('images/menu.png') }}" class="user" alt="">
+            <i class="fa-solid fa-bars fs-2"></i>
         </div>
         <div>
             <img src="{{ asset('images/user.png') }}" class="user" alt="">
@@ -23,10 +23,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @if (session('updateMessage'))
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            {{ session('updateMessage') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('deleteSuccess'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('deleteSuccess') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
     </div>
     <div>
         <table class="table">
-            <thead class="text-white bg-primary">
+            <thead class="text-white text-center bg-primary">
                 <tr>
                     <th>Action</th>
                     <th>No</th>
@@ -34,12 +46,12 @@
                     <th>Publish</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                 @foreach ($lists as $list)
                 <tr>
                     <td>
-                        <a href="" class="btn btn-sm btn-success"><i class="fa-solid fa-pencil"></i></a>
-                        <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a href="{{ route('category#updatePage',$list->id) }}" class="btn btn-sm btn-success"><i class="fa-solid fa-pencil"></i></a>
+                        <a href="{{ route('category#delete',$list->id) }}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                     <td>
                         {{ $list->id }}
