@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LoginController::class, 'loginPage'])->name('login#page');
+Route::post('/login', [LoginController::class, 'login'])->name('login#process');
+
+Route::prefix('item')->group(function () {
+    Route::get('/index', [ItemController::class, 'itemShow()'])->name('item#index');
+});
