@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function loginPage(){
         return view('auth.login');
@@ -19,8 +20,13 @@ class LoginController extends Controller
         if(Auth::attempt($credantial)){
             return redirect()->route('item#index');
         }else{
-            echo "Error";
+            return back()->with('message','Login details are not valid.');
         }
+    }
+    public function logout(){
+        Session::flush();
+        Auth::logout();
+        return redirect()->route('auth#loginPage')->with('logout','Logout Successfully...');
     }
 
 }

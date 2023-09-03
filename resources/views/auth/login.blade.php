@@ -12,12 +12,24 @@
     <div class="row mt-5">
         <div class="col-4 offset-4 shadow-sm">
             <div class="text-center">
-                <img src="{{ asset('images/logo-social.png') }}" class="w-25" alt="">
+                <img src="{{ asset('images/logo2.png') }}" class="w-25" alt="">
                 <h3>Log in to your account</h3>
                 <p class="text-muted">Welcome Back!</p>
             </div>
             <div>
-                <form action="{{ route('login#process') }}" method="POST">
+                <form action="{{ route('auth#login') }}" method="POST">
+                    @if (session('message'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('message') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if (session('logout'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('logout') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Email</label>
@@ -41,4 +53,7 @@
         </div>
     </div>
 </body>
+{{-- bootstrap-js --}}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </html>

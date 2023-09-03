@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LoginController::class, 'loginPage'])->name('login#page');
-Route::post('/login', [LoginController::class, 'login'])->name('login#process');
+Route::get('/', [AuthController::class, 'loginPage'])->name('auth#loginPage');
+Route::post('/login', [AuthController::class, 'login'])->name('auth#login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth#logout');
 
 Route::prefix('item')->group(function () {
-    Route::get('/index', [ItemController::class, 'itemShow()'])->name('item#index');
+    Route::get('/index', [ItemController::class, 'show'])->name('item#index');
+});
+
+Route::prefix('category')->group(function () {
+    Route::get('/index', [CategoryController::class, 'show'])->name('category#index');
+    Route::get('/createPage', [CategoryController::class, 'createPage'])->name('category#createPage');
+    Route::post('/create', [CategoryController::class, 'store'])->name('category#store');
 });
