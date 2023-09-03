@@ -1,7 +1,28 @@
 .main{
-    height: 800px;
-    background-color: aqua;
+    height: 100vh;
+    background-color: #EEF2FF;
+    position: relative;
 }
 .user{
     width: 50px;
+}
+.list{
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+}
+.list a{
+    text-decoration: none;
+    color: black;
+}
+.list:hover{
+    background-color: blue;
+    color: white;
+}
+
+.logout{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 40px;
 }

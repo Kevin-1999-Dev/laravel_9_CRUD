@@ -28,4 +28,7 @@ Route::prefix('category')->group(function () {
     Route::get('/index', [CategoryController::class, 'show'])->name('category#index');
     Route::get('/createPage', [CategoryController::class, 'createPage'])->name('category#createPage');
     Route::post('/create', [CategoryController::class, 'store'])->name('category#store');
+    Route::get('/updatePage/{id}', [CategoryController::class, 'updatePage'])->name('category#updatePage');
+    Route::post('/update/{id}', [CategoryController::class, 'edit'])->name('category#edit');
+    Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category#delete');
 });

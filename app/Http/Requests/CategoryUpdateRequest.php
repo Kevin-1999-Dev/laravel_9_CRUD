@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class CategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => ['required','min:3','max:255',Rule::unique('categories')->ignore($this->id)],
-            'image' => ['required',
+            'image' => [
                 File::types(['jpg', 'jpeg', 'png', 'webp'])
                     ->max(100 * 1024),
             ],

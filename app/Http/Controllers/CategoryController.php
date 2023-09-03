@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -15,15 +17,45 @@ class CategoryController extends Controller
         return view('category.create');
     }
     public function store(CategoryRequest $request){
-        $data = [
-            'name' => $request->name,
-            'image'=>$request->image,
-            'status' => $request->categoryCheck == "done" ? true : false,
-        ];
+        $data = $this->getCategoryData($request);
         $fileName = $request->image->getClientOriginalName();
         $request->image->storeAs('public/',$fileName);
         $data['image']=$fileName;
         Category::create($data);
         return redirect()->route('category#index')->with('message', 'Create Successfully...');
+    }
+    public function updatePage($id){
+        $data = Category::where('id', $id)->first();
+        return view('category.update',compact('data'));
+    }
+    public function edit(CategoryUpdateRequest $request,$id){
+        $data = $this->getCategoryData($request);
+
+        if($request->hasFile('image')){
+            $oldImage = Category::where('id',$id)->first();
+            $oldImage = $oldImage->image;
+            if($oldImage != null){
+             Storage::delete('public/'.$oldImage);
+            }
+            $fileName = $request->image->getClientOriginalName();
+            $request->image->storeAs('public/',$fileName);
+            $data['image']=$fileName;
+         }else{
+           $getData = Category::where('id', $id)->first();
+           $data['image']=$getData->image;
+         }
+        Category::where('id',$id)->update($data);
+        return redirect()->route('category#index')->with('updateMessage','Update Successfully...');
+    }
+    public function destroy($id){
+        Category::findOrFail($id)->delete();
+        return redirect()->route('category#index')->with(['deleteSuccess'=>'Delete Success...']);
+    }
+    private function getCategoryData($request){
+        return [
+            'name' => $request->name,
+            'image'=>$request->image,
+            'status' => $request->categoryCheck == "done" ? true : false,
+        ];
     }
 }
