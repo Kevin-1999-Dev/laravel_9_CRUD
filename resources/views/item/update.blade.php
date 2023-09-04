@@ -7,20 +7,20 @@
         </div>
     </nav>
     <div class="mb-3">
-        <span>Item Lists ></span><a href="{{ route('item#createPage') }}" class="text-decoration-none">Add Items</a>
+        <span>Item Lists ></span><a href="{{ route('item#updatePage',$data->id) }}" class="text-decoration-none">Edit Items</a>
     </div>
     <div class="mb-3">
-        <h2 class="bg-primary p-2 text-white">Add Items</h2>
+        <h2 class="bg-primary p-2 text-white">Edit Items</h2>
     </div>
     <div>
-        <form action="{{ route('item#store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('item#edit',$data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-6">
                     <h3>Item Information</h3>
                     <div class="mb-3">
                         <label for="" class="form-label">Item Name</label><span class="text-danger">*</span>
-                        <input type="text" name="name" value="{{ old('name') }}"
+                        <input type="text" name="name" value="{{ old('name',$data->name) }}"
                             class="form-control  @error('name')
                         is-invalid
                     @enderror"
@@ -37,17 +37,17 @@
                     @enderror">
                             <option value="">Select Category</option>
                             @foreach ($categories as $c)
-                                <option value="{{ $c->id }}" {{ old('category_id') == $c->id ? 'selected' : '' }}>
+                                <option value="{{ $c->id }}" {{ old('category_id',$data->category_id) == $c->id ? 'selected' : '' }}>
                                     {{ $c->name }}</option>
                             @endforeach
                         </select>
-                        @error('itemCategory')
+                        @error('category_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Price</label><span class="text-danger">*</span>
-                        <input type="number" name="price" value="{{ old('price') }}"
+                        <input type="number" name="price" value="{{ old('price',$data->price) }}"
                             class="form-control  @error('price')
                         is-invalid
                     @enderror"
@@ -62,7 +62,7 @@
                             class="form-control  @error('description')
                         is-invalid
                     @enderror"
-                            placeholder="Enter Description">{{ old('description') }}</textarea>
+                            placeholder="Enter Description">{{ old('description',$data->description) }}</textarea>
                         @error('description')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -74,8 +74,8 @@
                         is-invalid
                     @enderror">
                             <option value="">Select Item Condition</option>
-                            <option value="new" {{ old('condition') == 'new' ? 'selected' : '' }}>New</option>
-                            <option value="used" {{ old('condition') == 'used' ? 'selected' : '' }}>Used</option>
+                            <option value="new" {{ old('conditon',$data->condition ) == 'new' ? 'selected' : '' }}>New</option>
+                            <option value="used" {{ old('condition',$data->condition ) == 'used' ? 'selected' : '' }}>Used</option>
                         </select>
                         @error('condition')
                             <small class="text-danger">{{ $message }}</small>
@@ -88,9 +88,9 @@
                         is-invalid
                     @enderror">
                             <option value="">Select Item Type</option>
-                            <option value="buy" {{ old('type') == 'buy' ? 'selected' : '' }}>Buy</option>
-                            <option value="sell" {{ old('type') == 'sell' ? 'selected' : '' }}>Sell</option>
-                            <option value="exchange" {{ old('type') == 'exchange' ? 'selected' : '' }}>Exchange</option>
+                            <option value="buy" {{ old('type',$data->type ) == 'buy' ? 'selected' : '' }}>Buy</option>
+                            <option value="sell" {{ old('type',$data->type ) == 'sell' ? 'selected' : '' }}>Sell</option>
+                            <option value="exchange" {{ old('type',$data->type ) == 'exchange' ? 'selected' : '' }}>Exchange</option>
                         </select>
                         @error('type')
                             <small class="text-danger">{{ $message }}</small>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Status</label>
-                        <input type="checkbox" name="itemCheck" value="done">
+                        <input type="checkbox" name="itemCheck" @if ( $data->status == 1 ) checked @endif value="done">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Item Photo</label><span class="text-danger">*</span>
@@ -109,13 +109,16 @@
                         @error('image')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
+                        <div class="col-3 mt-3">
+                            <img src="{{ asset('storage/'.$data->image) }}" class="img-thumbnail shadow-sm" />
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <h3>Owner Information</h3>
                     <div class="mb-3">
                         <label for="" class="form-label">Owner Name</label><span class="text-danger">*</span>
-                        <input type="text" name="owner_name" value="{{ old('owner_name') }}"
+                        <input type="text" name="owner_name" value="{{ old('owner_name',$data->owner_name) }}"
                             class="form-control  @error('owner_name')
                         is-invalid
                     @enderror"
@@ -126,7 +129,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Contact Number</label><span class="text-danger">*</span>
-                        <input type="number" name="contact_number" value="{{ old('contact_number') }}"
+                        <input type="number" name="contact_number" value="{{ old('contact_number',$data->contact_number) }}"
                             class="form-control  @error('contact_number')
                         is-invalid
                     @enderror"
@@ -137,7 +140,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Address</label><span class="text-danger">*</span>
-                        <input type="text" name="address" value="{{ old('address') }}"
+                        <input type="text" name="address" value="{{ old('address',$data->address) }}"
                             class="form-control  @error('address')
                         is-invalid
                     @enderror"
@@ -151,7 +154,7 @@
                         <div id="mapContainer"></div>
                     </div>
                     <div class="mb-3 ">
-                        <input type="submit" value="Save" class="btn btn-primary">
+                        <input type="submit" value="Edit" class="btn btn-primary">
                         <a href="{{ route('item#index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </div>

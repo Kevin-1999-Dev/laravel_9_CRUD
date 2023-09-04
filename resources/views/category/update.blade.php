@@ -1,6 +1,6 @@
 @extends('../layout')
 
-@section('item')
+@section('catgory')
     <nav class="border border-dark mb-3">
         <div class="">
             <img src="{{  asset('images/menu.png') }}" class="user" alt="">
@@ -46,7 +46,7 @@
             </div>
             <div class="text-center">
                 <input type="submit" value="Edit" class="btn btn-primary">
-                <a href="{{ route('category#index') }}" class="btn btn-secondary">Cancle</a>
+                <a href="{{ route('category#index') }}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

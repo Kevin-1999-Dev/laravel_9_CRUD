@@ -12,7 +12,7 @@
 <div>
     <a href="{{ route('item#index') }}" class="text-decoration-none">Items List</a>
 </div>
-<div class="float-end mb-3">
+<div class="float-end me-5 mb-3">
     <a href="{{ route('item#createPage') }}" class="btn btn-primary text-white"><i class="fa-solid fa-plus"></i> Add
         Items</a>
 </div>
@@ -20,6 +20,18 @@
     @if (session('createSuccess'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('createSuccess') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if (session('updateMessage'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('updateMessage') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if (session('deleteSuccess'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('deleteSuccess') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
@@ -42,8 +54,8 @@
             @foreach ($lists as $list)
             <tr>
                 <td>
-                    <a href="" class="btn btn-sm btn-success"><i class="fa-solid fa-pencil"></i></a>
-                    <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                    <a href="{{ route('item#updatePage',$list->id) }}" class="btn btn-sm btn-success"><i class="fa-solid fa-pencil"></i></a>
+                    <a href="{{ route('item#delete',$list->id) }}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                 </td>
                 <td>
                     {{ $list->id }}
@@ -52,7 +64,7 @@
                     {{ $list->name }}
                 </td>
                 <td>
-                    {{ $list->category_id }}
+                    {{ $list->category_name }}
                 </td>
                 <td>{{ $list->description }} </td>
                 <td>${{ $list->price }}</td>
@@ -63,6 +75,7 @@
 
         </tbody>
     </table>
+    {{ $lists->links() }}
 </div>
 
 

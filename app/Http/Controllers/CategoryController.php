@@ -10,7 +10,7 @@ use App\Http\Requests\CategoryUpdateRequest;
 class CategoryController extends Controller
 {
     public function show(){
-        $lists = Category::get();
+        $lists = Category::paginate(3);
         return view('category.index',compact('lists'));
     }
     public function createPage(){

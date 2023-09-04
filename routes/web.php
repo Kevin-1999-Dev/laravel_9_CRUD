@@ -24,6 +24,9 @@ Route::prefix('item')->group(function () {
     Route::get('/index', [ItemController::class, 'show'])->name('item#index');
     Route::get('/createPage', [ItemController::class, 'createPage'])->name('item#createPage');
     Route::post('/create', [ItemController::class, 'store'])->name('item#store');
+    Route::get('/updatePage/{id}', [ItemController::class, 'updatePage'])->name('item#updatePage');
+    Route::post('/update/{id}', [ItemController::class, 'edit'])->name('item#edit');
+    Route::get('/delete/{id}', [ItemController::class, 'destroy'])->name('item#delete');
 });
 
 Route::prefix('category')->group(function () {

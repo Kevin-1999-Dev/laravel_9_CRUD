@@ -10,9 +10,9 @@
         </div>
     </nav>
     <div>
-        <a href="" class="text-decoration-none">Categories</a>
+        <a href="{{ route('category#index') }}" class="text-decoration-none">Categories</a>
     </div>
-    <div class="float-end">
+    <div class="float-end me-5">
         <a href="{{ route('category#createPage') }}" class="btn btn-primary text-white"><i class="fa-solid fa-plus"></i> Add
             Categories</a>
     </div>
@@ -67,5 +67,6 @@
 
             </tbody>
         </table>
+        {{ $lists->links() }}
     </div>
 @endsection
