@@ -53,6 +53,22 @@ class ItemController extends Controller
         Item::findOrFail($id)->delete();
         return redirect()->route('item#index')->with(['deleteSuccess'=>'Delete Success...']);
     }
+    public function change($id){
+        $data = Item::where('id', $id)->first();
+        $result = [
+         'status' => $data['status']
+     ];
+         if($data['status'] == 1){
+             $result['status'] = 0;
+         }elseif($data['status'] == 0){
+             $result['status'] = 1;
+         }else{
+             dd('error');
+         }
+
+         Item::where('id', $id)->update($result);
+         return back();
+     }
     private function getDataItem($request){
         return [
             'name' => $request->name,
@@ -60,7 +76,7 @@ class ItemController extends Controller
             'category_id' => $request->category_id,
             'status' => $request->itemCheck == "done" ? true : false,
             'price' => $request->price,
-            'description' => $request->description,
+            'description' => strip_tags($request->description),
             'owner_name' => $request->owner_name,
             'contact_number' => $request->contact_number,
             'address' => $request->address,

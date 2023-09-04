@@ -1,6 +1,6 @@
 @extends('../layout')
 
-@section('catgory')
+@section('category')
     <nav class="border border-dark mb-3">
         <div class="">
             <img src="{{  asset('images/menu.png') }}" class="user" alt="">

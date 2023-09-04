@@ -58,7 +58,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Description</label><span class="text-danger">*</span>
-                        <textarea name="description" id="" cols="30" rows="10"
+                        <textarea name="description" id="editor" cols="30" rows="10"
                             class="form-control  @error('description')
                         is-invalid
                     @enderror"
@@ -150,7 +150,7 @@
                         @enderror
                     </div>
                     <div class="mb-3 map">
-                        <input class="example" type="text" value="" />
+                        <input class="example form-control w-50 mb-2" id="example" type="text" value="" disabled />
                         <div id="mapContainer"></div>
                     </div>
                     <div class="mb-3 ">
@@ -165,12 +165,35 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('.example').leafletLocationPicker({
-                alwaysOpen: true,
-                mapContainer: "#mapContainer",
-                position: 'bottomleft',
-            });
-        });
+         ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } )
+            ;
+            var map = L.map('mapContainer').setView([51.405, -0.09], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+var marker = L.marker([51.5, -0.09]).addTo(map);
+var circle = L.circle([51.508, -0.11], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+
+    document.getElementById('example').value = e.latlng.lat+ "," +e.latlng.lng;
+}
+
+map.on('click', onMapClick);
     </script>
 @endsection

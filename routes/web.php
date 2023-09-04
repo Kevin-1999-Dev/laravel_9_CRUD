@@ -27,6 +27,7 @@ Route::prefix('item')->group(function () {
     Route::get('/updatePage/{id}', [ItemController::class, 'updatePage'])->name('item#updatePage');
     Route::post('/update/{id}', [ItemController::class, 'edit'])->name('item#edit');
     Route::get('/delete/{id}', [ItemController::class, 'destroy'])->name('item#delete');
+    Route::get('/changePublish/{id}', [ItemController::class, 'change'])->name('item#status');
 });
 
 Route::prefix('category')->group(function () {
@@ -36,6 +37,9 @@ Route::prefix('category')->group(function () {
     Route::get('/updatePage/{id}', [CategoryController::class, 'updatePage'])->name('category#updatePage');
     Route::post('/update/{id}', [CategoryController::class, 'edit'])->name('category#edit');
     Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category#delete');
+    Route::get('/changePublish/{id}', [CategoryController::class, 'change'])->name('category#status');
 });
+
+
 
 

@@ -1,18 +1,18 @@
-/* 
- * Leaflet Location Picker v0.3.4 - 2022-11-18 
- * 
- * Copyright 2022 Stefano Cudini 
- * stefano.cudini@gmail.com 
- * https://opengeo.tech/ 
- * 
- * Licensed under the MIT license. 
- * 
- * Demo: 
- * https://opengeo.tech/maps/leaflet-locationpicker/ 
- * 
- * Source: 
- * git@github.com:stefanocudini/leaflet-locationpicker.git 
- * 
+/*
+ * Leaflet Location Picker v0.3.4 - 2022-11-18
+ *
+ * Copyright 2022 Stefano Cudini
+ * stefano.cudini@gmail.com
+ * https://opengeo.tech/
+ *
+ * Licensed under the MIT license.
+ *
+ * Demo:
+ * https://opengeo.tech/maps/leaflet-locationpicker/
+ *
+ * Source:
+ * git@github.com:stefanocudini/leaflet-locationpicker.git
+ *
  */
 
 (function (factory) {
@@ -46,7 +46,7 @@
 			};
 
 		var optsMap = {
-				zoom: 0,
+				zoom: 30,
 				center: L.latLng([40,0]),
 				zoomControl: false,
 				attributionControl: false

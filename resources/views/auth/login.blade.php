@@ -16,7 +16,7 @@
     <div class="row mt-5" id="app">
         <div class="col-4 offset-4 shadow-sm">
             <div class="text-center">
-                <img src="{{ asset('images/logo5.jpg') }}" class="w-25" alt="">
+                <img src="{{ asset('images/kaung1.png') }}" class="w-25" alt="">
                 <h3>Log in to your account</h3>
                 <p class="text-muted">Welcome Back!</p>
             </div>

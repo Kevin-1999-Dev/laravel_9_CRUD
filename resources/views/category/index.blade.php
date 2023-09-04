@@ -60,7 +60,11 @@
                      {{ $list->name }}
                     </td>
                     <td>
-                        {{ $list->status }}
+                       @if ($list->status == 1)
+                            <a href="{{ route('category#status',$list->id) }}" class="btn btn-primary">On</a>
+                       @else
+                       <a href="{{ route('category#status',$list->id) }}" class="btn btn-primary">Off</a>
+                       @endif
                     </td>
                 </tr>
                 @endforeach

@@ -51,6 +51,22 @@ class CategoryController extends Controller
         Category::findOrFail($id)->delete();
         return redirect()->route('category#index')->with(['deleteSuccess'=>'Delete Success...']);
     }
+    public function change($id){
+       $data = Category::where('id', $id)->first();
+       $result = [
+        'status' => $data['status']
+    ];
+        if($data['status'] == 1){
+            $result['status'] = 0;
+        }elseif($data['status'] == 0){
+            $result['status'] = 1;
+        }else{
+            dd('error');
+        }
+
+        Category::where('id', $id)->update($result);
+        return back();
+    }
     private function getCategoryData($request){
         return [
             'name' => $request->name,
