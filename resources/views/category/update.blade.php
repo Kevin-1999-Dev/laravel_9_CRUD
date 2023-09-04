@@ -17,7 +17,9 @@
             @csrf
             <div class="mb-3">
                 <label for="" class="form-label">Category</label><span class="text-danger">*</span>
-                <input type="text" name="name" value="{{ old('name',$data->name) }}" class="form-control" placeholder="Input Name...">
+                <input type="text" name="name" value="{{ old('name',$data->name) }}" class="form-control  @error('name')
+                is-invalid
+            @enderror" placeholder="Input Name...">
                 @error('name')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -25,7 +27,9 @@
             <div class="mb-3">
                 <label for="" class="form-label">Category Photo</label><span class="text-danger">*</span>
                 <small class="text-muted d-block">Recommended Size : 400 x 200</small>
-                <input type="file" name="image" class="form-control">
+                <input type="file" name="image" class="form-control  @error('image')
+                is-invalid
+            @enderror">
                 @error('image')
                 <small class="text-danger">{{ $message }}</small>
             @enderror

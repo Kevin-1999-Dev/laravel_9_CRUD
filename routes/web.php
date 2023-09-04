@@ -22,6 +22,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('auth#logout');
 
 Route::prefix('item')->group(function () {
     Route::get('/index', [ItemController::class, 'show'])->name('item#index');
+    Route::get('/createPage', [ItemController::class, 'createPage'])->name('item#createPage');
+    Route::post('/create', [ItemController::class, 'store'])->name('item#store');
 });
 
 Route::prefix('category')->group(function () {
@@ -32,3 +34,5 @@ Route::prefix('category')->group(function () {
     Route::post('/update/{id}', [CategoryController::class, 'edit'])->name('category#edit');
     Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category#delete');
 });
+
+

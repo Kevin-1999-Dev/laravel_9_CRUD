@@ -18,7 +18,7 @@ class CategoryController extends Controller
     }
     public function store(CategoryRequest $request){
         $data = $this->getCategoryData($request);
-        $fileName = $request->image->getClientOriginalName();
+        $fileName = uniqid().$request->image->getClientOriginalName();
         $request->image->storeAs('public/',$fileName);
         $data['image']=$fileName;
         Category::create($data);
@@ -37,7 +37,7 @@ class CategoryController extends Controller
             if($oldImage != null){
              Storage::delete('public/'.$oldImage);
             }
-            $fileName = $request->image->getClientOriginalName();
+            $fileName = uniqid().$request->image->getClientOriginalName();
             $request->image->storeAs('public/',$fileName);
             $data['image']=$fileName;
          }else{

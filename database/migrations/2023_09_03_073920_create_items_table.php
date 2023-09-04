@@ -19,14 +19,13 @@ return new class extends Migration
             $table->string('image');
             $table->integer('category_id');
             $table->string('description');
-            $table->string('owner');
             $table->integer('price');
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->string('condition');
             $table->string('type');
             $table->string('owner_name');
             $table->string('address');
-            $table->integer('contact_number');
+            $table->string('contact_number');
             $table->timestamps();
         });
     }
